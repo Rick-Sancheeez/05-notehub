@@ -19,7 +19,7 @@ export default function App() {
     const[currentPage, setCurrentPage] = useState(1);
     const[query, setQuery] = useState('');
 
-    const{data} = useQuery({
+    const{data, isFetching, isError} = useQuery({
         queryKey: ['note', currentPage, query],
         queryFn: () => fetchNotes(query, currentPage),
         placeholderData: keepPreviousData,
@@ -33,6 +33,10 @@ export default function App() {
         <div className={css.app}>
             <header className={css.toolbar}>
                 <SearchBox getQuery={getQuery}/>
+
+                {isFetching && <p>Loading your notes...</p>}
+                {isError && <p>Something went wrong! Try again</p>}
+                
                 {total_Pages && total_Pages > 1 && <Pagination totalPages = {total_Pages} setPage={setCurrentPage} currentPage={currentPage}/>}
                 <button className={css.button} onClick={() => setModalIsOpen(true)}>Create note +</button>
 

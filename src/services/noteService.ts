@@ -24,7 +24,7 @@ export async function fetchNotes(query: string, page: number) {
         params: {
             search: query,
             page: page, 
-            perPage: 12,
+            perPage: 12
         }
     });
 
