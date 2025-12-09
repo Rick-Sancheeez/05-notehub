@@ -10,15 +10,14 @@ interface NoteListProps {
     currentPage: number;
 };
 
-export default function NoteList({notes, query, currentPage}: NoteListProps) {
+export default function NoteList({notes}: NoteListProps) {
    
    const queryClient = useQueryClient();
 
     const mutation = useMutation({
         mutationFn: async (id: string) => deleteNote(id),
         onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ['note', currentPage, query]});
-
+            queryClient.invalidateQueries({queryKey: ['note']});
         },
     });
 

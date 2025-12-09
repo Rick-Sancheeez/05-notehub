@@ -8,7 +8,7 @@ interface FetchNotesResponse {
     totalPages: number;
 }
 
-interface PostNote {
+interface MutateNote {
     title: string;
     content: string;
     tag: string;
@@ -32,8 +32,8 @@ export async function fetchNotes(query: string, page: number) {
 
 }
 
-export async function createNote(note: PostNote) {
-    const res = await axios.post('/notes', note, {
+export async function createNote(note: MutateNote) {
+    const res = await axios.post<MutateNote>('/notes', note, {
         headers: {
             Authorization: `Bearer ${API_KEY}`,
         }
@@ -42,7 +42,7 @@ export async function createNote(note: PostNote) {
 }
 
 export async function deleteNote(id: string) { 
-    const res = await axios.delete(`/notes/${id}`, {
+    const res = await axios.delete<MutateNote>(`/notes/${id}`, {
         headers: {
             Authorization: `Bearer ${API_KEY}`,
         },

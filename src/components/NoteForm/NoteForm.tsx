@@ -1,14 +1,17 @@
 import css from './NoteForm.module.css'
 
+
 import { Formik, Form, Field, ErrorMessage } from 'formik'
-import type {FormikHelpers} from 'formik'
+//import type {FormikHelpers} from 'formik'
 import * as Yup from 'yup'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
 
 import {createNote} from '../../services/noteService'
 
 const Schema = Yup.object().shape({
-    title: Yup.string().required('Title is required').min(2, 'Title is too short'),
+    title: Yup.string().required('Title is required').min(3, 'Title is too short').max(50, 'Title is too long'),
+    content: Yup.string().max(500, 'Content must be under 500 symbols'),
+    tag: Yup.string().required('Choose a category').oneOf(['Todo', 'Personal', 'Work', 'Meeting', 'Shopping']),
 });
 
 interface NoteFormValues {
@@ -20,7 +23,7 @@ interface NoteFormValues {
 const initialValues: NoteFormValues = {
     title: '',
     content: '',
-    tag: 'Todo',
+    tag: '',
 };
 
 interface NoteFormProps {
@@ -43,10 +46,8 @@ export default function NoteForm({onClose, currentPage, query}: NoteFormProps) {
 
     const handleSubmit = (
         values: NoteFormValues,
-        actions: FormikHelpers<NoteFormValues>
     ) => {
         mutation.mutate(values);
-        actions.resetForm();
     };
 
     return (
@@ -72,6 +73,7 @@ export default function NoteForm({onClose, currentPage, query}: NoteFormProps) {
         <div className={css.formGroup}>
             <label htmlFor="tag">Tag</label>
             <Field as='select' id="tag" name="tag" className={css.select}>
+                <option value="">Select category...</option>
                 <option value="Todo">Todo</option>
                 <option value="Work">Work</option>
                 <option value="Personal">Personal</option>

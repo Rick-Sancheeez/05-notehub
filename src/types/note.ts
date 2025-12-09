@@ -6,6 +6,3 @@ export interface Note {
     
 };
 
-export interface NoteHTTPResponse {
-    notes: Note[];
-}
