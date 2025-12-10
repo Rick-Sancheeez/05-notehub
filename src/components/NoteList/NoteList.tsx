@@ -6,8 +6,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 interface NoteListProps {
     notes: Note[];
-    query: string;
-    currentPage: number;
 };
 
 export default function NoteList({notes}: NoteListProps) {

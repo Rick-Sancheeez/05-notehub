@@ -42,7 +42,7 @@ export default function App() {
 
                 
             </header>
-            {data && <NoteList notes={data.notes} query={query} currentPage={currentPage}/>}
+            {data && <NoteList notes={data.notes} />}
 
             {ModalIsOpen && <Modal onClose={() => setModalIsOpen(false)}> 
                     <NoteForm onClose={() => setModalIsOpen(false)} currentPage={currentPage} query={query}/> 

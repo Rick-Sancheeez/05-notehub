@@ -33,7 +33,7 @@ export async function fetchNotes(query: string, page: number) {
 }
 
 export async function createNote(note: MutateNote) {
-    const res = await axios.post<MutateNote>('/notes', note, {
+    const res = await axios.post<Note>('/notes', note, {
         headers: {
             Authorization: `Bearer ${API_KEY}`,
         }
@@ -42,7 +42,7 @@ export async function createNote(note: MutateNote) {
 }
 
 export async function deleteNote(id: string) { 
-    const res = await axios.delete<MutateNote>(`/notes/${id}`, {
+    const res = await axios.delete<Note>(`/notes/${id}`, {
         headers: {
             Authorization: `Bearer ${API_KEY}`,
         },
